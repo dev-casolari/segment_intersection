@@ -1,0 +1,32 @@
+import os
+import time
+import random
+import numpy as np
+import matplotlib.pyplot as plt
+from IPython.display import clear_output
+
+def ccw(A,B,C):
+    #print((C[1]-A[1]) * (B[0]-A[0]) > (B[1]-A[1]) * (C[0]-A[0]))
+    return (C[1]-A[1]) * (B[0]-A[0]) > (B[1]-A[1]) * (C[0]-A[0])
+
+# Return true if line segments AB and CD intersect
+def intersect(A,B,C,D):
+    return ccw(A,C,D) != ccw(B,C,D) and ccw(A,B,C) != ccw(A,B,D)
+
+for i in range(1000):
+    segmento_a = [[random.randint(-10,10), random.randint(-10,10)],
+                 [random.randint(-10,10), random.randint(-10,10)]]
+    segmento_b = [[random.randint(-10,10), random.randint(-10,10)],
+                 [random.randint(-10,10), random.randint(-10,10)]]
+    clear_output(wait=False)
+    plt.xlim(-11,11)
+    plt.ylim(-11,11)
+    plt.xticks(np.arange(-10, 11, 1))
+    plt.yticks(np.arange(-10, 11, 1))
+    plt.axhline(0, color='red', alpha=0.2) #x-axis line
+    plt.axvline(0, color='red', alpha=0.2) #y-axis line
+    plt.plot([x_cord[0] for x_cord in segmento_a], [y_cord[1] for y_cord in segmento_a], 'bo', linestyle="-")
+    plt.plot([x_cord[0] for x_cord in segmento_b], [y_cord[1] for y_cord in segmento_b], 'bo', linestyle="-")
+    plt.show()
+    print(intersect(segmento_a[0], segmento_a[1], segmento_b[0], segmento_b[1]))
+    time.sleep(1)    
